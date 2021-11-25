@@ -14,6 +14,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final pseudoController = TextEditingController();
+  final codeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +38,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(top: 50),
                         child: TextFormField(
                           style: textStyleLight,
+                          controller: pseudoController,
                           textAlign: TextAlign.center,
                           decoration: textInputDecorationLight.copyWith(
                               hintText: "Ton pseudo"),
@@ -44,6 +47,7 @@ class _HomeState extends State<Home> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: TextFormField(
+                          controller: codeController,
                           style: textStyleLight,
                           textAlign: TextAlign.center,
                           decoration: textInputDecorationLight.copyWith(
@@ -55,8 +59,10 @@ class _HomeState extends State<Home> {
                         child: LButton(
                           label: "Rejoindre une partie",
                           onPressed: () {
+                            var code = codeController.value.text;
+                            var pseudo = pseudoController.value.text;
                             SocketService().socket.emit("join-room",
-                                {'roomId': '0000', 'playerName': 'Toto'});
+                                {'roomId': code, 'playerName': pseudo});
                             //Navigator.pushNamed(context, '/lobby');
                           },
                           color: LColors.lightgrey,
