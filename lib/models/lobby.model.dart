@@ -1,10 +1,17 @@
-class Lobby {
-  String code;
+import 'package:client/models/player.model.dart';
 
-  Lobby({required this.code});
+class Lobby {
+  String code = '0000';
+  List<Player> players = List.empty();
+
+  Lobby({required this.code, required this.players});
 
   factory Lobby.fromJson(Map<String, dynamic> json) {
-    return Lobby(code: json['code']);
-    // TODO map json user data from server to Player users (use Player.fromJson(data))
+    List<Player> players = [];
+    json['players'].forEach((element) {
+      players.add(Player.fromJson(element));
+    });
+
+    return Lobby(code: json['code'].toString(), players: players);
   }
 }

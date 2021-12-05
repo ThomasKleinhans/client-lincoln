@@ -28,8 +28,8 @@ class SocketService {
           snackPosition: SnackPosition.BOTTOM);
     });
 
-    socket.on("goToRoute", (data) {
-      Get.toNamed(data);
+    socket.on("lobby-joined", (data) {
+      Get.toNamed("/lobby");
     });
 
     socket.on("update-lobby", (data) {

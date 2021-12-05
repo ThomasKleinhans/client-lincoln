@@ -10,6 +10,7 @@ class LRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "Lincoln Game",
+      debugShowCheckedModeBanner: false,
       routes: {
         Home.routeName: (context) => const Home(),
         Lobby.routeName: (context) => const Lobby(),
