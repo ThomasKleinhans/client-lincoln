@@ -19,73 +19,78 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: LColors.light,
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(padding: EdgeInsets.only(top: 50), child: LHeader()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: 270,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Image(
-                          image: AssetImage("assets/img/lincoln-logo.png"),
+            const LHeader(),
+            const Expanded(
+              flex: 4,
+              child: Image(image: AssetImage("assets/img/lincoln-logo.png")),
+            ),
+            Expanded(
+              flex: 6,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: TextFormField(
+                          style: textStyleLight,
+                          controller: pseudoController,
+                          textAlign: TextAlign.center,
+                          decoration: textInputDecorationLight.copyWith(
+                              hintText: "Ton pseudo"),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: TextFormField(
-                            style: textStyleLight,
-                            controller: pseudoController,
-                            textAlign: TextAlign.center,
-                            decoration: textInputDecorationLight.copyWith(
-                                hintText: "Ton pseudo"),
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: TextFormField(
+                          controller: codeController,
+                          style: textStyleLight,
+                          textAlign: TextAlign.center,
+                          decoration: textInputDecorationLight.copyWith(
+                              hintText: "Code de la partie"),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: codeController,
-                            style: textStyleLight,
-                            textAlign: TextAlign.center,
-                            decoration: textInputDecorationLight.copyWith(
-                                hintText: "Code de la partie"),
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: LButton(
+                          label: "Rejoindre une partie",
+                          onPressed: () {
+                            var code = codeController.value.text;
+                            var pseudo = pseudoController.value.text;
+                            SocketService().socket.emit("join-lobby",
+                                {'lobbyId': code, 'playerName': pseudo});
+                            //Navigator.pushNamed(context, '/lobby');
+                          },
+                          color: LColors.lightgrey,
+                          textColor: LColors.dark,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: LButton(
-                            label: "Rejoindre une partie",
-                            onPressed: () {
-                              var code = codeController.value.text;
-                              var pseudo = pseudoController.value.text;
-                              SocketService().socket.emit("join-lobby",
-                                  {'lobbyId': code, 'playerName': pseudo});
-                              //Navigator.pushNamed(context, '/lobby');
-                            },
-                            color: LColors.lightgrey,
-                            textColor: LColors.dark,
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: LButton(
+                          label: "Créer une partie",
+                          onPressed: () {
+                            var pseudo = pseudoController.value.text;
+                            SocketService()
+                                .socket
+                                .emit("create-lobby", {'playerName': pseudo});
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: LButton(
-                            label: "Créer une partie",
-                            onPressed: () {
-                              var pseudo = pseudoController.value.text;
-                              SocketService()
-                                  .socket
-                                  .emit("create-lobby", {'playerName': pseudo});
-                            },
-                          ),
-                        ),
-                      ],
-                    ))
-              ],
-            )
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

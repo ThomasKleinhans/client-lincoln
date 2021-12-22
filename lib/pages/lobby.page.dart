@@ -17,23 +17,40 @@ class Lobby extends StatefulWidget {
 class _LobbyState extends State<Lobby> {
   LobbyController lobbyController = Get.find();
 
-  List<Player> players = [
-    Player(name: "Thomas1"),
-    Player(name: "Justine2"),
-    Player(name: "Thomas3"),
-    Player(name: "Justine4"),
-    Player(name: "Thomas5"),
-    Player(name: "Justine6"),
-    Player(name: "Thomas7"),
-    Player(name: "Justine8"),
-    Player(name: "Thomas9"),
-    Player(name: "Justine10"),
-    Player(name: "Justine11"),
-    Player(name: "Thomas12"),
-    Player(name: "Justine13"),
-    Player(name: "Thomas14"),
-    Player(name: "Justine15"),
-    Player(name: "Justine16"),
+  final players = [
+    Player(name: "Thomas", isHost: true),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
+    Player(name: "Thomas", isHost: false),
   ];
 
   @override
@@ -43,147 +60,118 @@ class _LobbyState extends State<Lobby> {
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(padding: EdgeInsets.only(top: 50), child: LHeader()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: 270,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+            const LHeader(),
+            Expanded(
+                flex: 2,
+                child: Column(
+                  children: const [
+                    Text(
+                      "Code de la partie",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: LColors.dark,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "6543",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: LColors.dark,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )),
+            Expanded(
+                flex: 6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
                       children: [
-                        const Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: Text(
-                              "Code de la partie",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: LColors.dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 40),
-                            child: Obx(
-                              () => Text(
-                                lobbyController.currentLobby.value.code,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: LColors.dark,
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    players.length.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        color: LColors.dark,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const Text(
-                                    "/9",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: LColors.dark,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const Icon(
-                                    Icons.account_box,
-                                    color: LColors.dark,
-                                  )
-                                ])),
-                        Row(children: [
-                          Flexible(
-                            child: Container(
-                                height: 400,
-                                child: Obx(
-                                  () => ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: lobbyController
-                                          .currentLobby.value.players.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return index % 2 == 0
-                                            ? UserItem(
-                                                name: lobbyController
-                                                    .currentLobby
-                                                    .value
-                                                    .players[index]
-                                                    .name,
-                                                isHost: false,
-                                              )
-                                            : Container();
-                                      }),
-                                )),
-                          ),
-                          const VerticalDivider(
-                            color: LColors.grey,
-                            thickness: 1,
-                            width: 20,
-                            indent: 20,
-                            endIndent: 0,
-                          ),
-                          Flexible(
-                            child: Container(
-                                height: 400,
-                                child: Obx(
-                                  () => ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: lobbyController
-                                          .currentLobby.value.players.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return index % 2 == 1
-                                            ? UserItem(
-                                                name: lobbyController
-                                                    .currentLobby
-                                                    .value
-                                                    .players[index]
-                                                    .name,
-                                                isHost: false,
-                                              )
-                                            : Container();
-                                      }),
-                                )),
-                          ),
-                        ]),
-                        const Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: Text(
-                              "Répartissez tous les joueurs dans deux salles séparés avant de lancer une partie.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: LColors.dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: LButton(
-                            label: "Option de la partie",
-                            onPressed: () {},
-                            color: LColors.lightgrey,
-                            textColor: LColors.dark,
-                          ),
+                        Text(
+                          players.length.toString(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: LColors.dark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: LButton(
-                            label: "Commencer la partie",
-                            onPressed: () {},
-                          ),
+                        const Text(
+                          "/9",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: LColors.dark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Icon(
+                          Icons.account_box,
+                          color: LColors.dark,
                         ),
                       ],
-                    ))
-              ],
+                    ),
+                    Row(
+                      children: [
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: players.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return index % 2 == 0
+                                  ? UserItem(
+                                      name: players[index].name,
+                                      isHost: players[index].isHost,
+                                    )
+                                  : Container();
+                            }),
+                        const VerticalDivider(
+                          color: LColors.grey,
+                          thickness: 1,
+                          width: 20,
+                          indent: 20,
+                          endIndent: 0,
+                        ),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: players.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return index % 2 == 1
+                                  ? UserItem(
+                                      name: players[index].name,
+                                      isHost: players[index].isHost,
+                                    )
+                                  : Container();
+                            }),
+                      ],
+                    )
+                  ],
+                )),
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Répartissez tous les joueurs dans deux salles séparés avant de lancer une partie.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: LColors.dark,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  LButton(
+                    label: "Option de la partie",
+                    onPressed: () {},
+                    color: LColors.lightgrey,
+                    textColor: LColors.dark,
+                  ),
+                  LButton(
+                    label: "Commencer la partie",
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             )
           ],
         ),
