@@ -118,7 +118,32 @@ class _LobbyState extends State<Lobby> {
                         ],
                       ),
                       Row(
-                        children: [],
+                        children: [
+                          Column(
+                            children: [
+                              ListView.builder(
+                                  itemCount: players.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return index % 2 == 1
+                                        ? Text(players[index].name)
+                                        : Container();
+                                  })
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              ListView.builder(
+                                  itemCount: players.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return index % 2 == 0
+                                        ? Text(players[index].name)
+                                        : Container();
+                                  })
+                            ],
+                          )
+                        ],
                       )
                     ],
                   ),
