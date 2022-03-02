@@ -117,33 +117,40 @@ class _LobbyState extends State<Lobby> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              ListView.builder(
-                                  itemCount: players.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return index % 2 == 1
-                                        ? Text(players[index].name)
-                                        : Container();
-                                  })
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              ListView.builder(
-                                  itemCount: players.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return index % 2 == 0
-                                        ? Text(players[index].name)
-                                        : Container();
-                                  })
-                            ],
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: Colors.blue,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: players.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return index % 2 == 1
+                                          ? Text(players[index].name)
+                                          : Container();
+                                    }),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                color: Colors.red,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: players.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return index % 2 == 0
+                                          ? Text(players[index].name)
+                                          : Container();
+                                    }),
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
